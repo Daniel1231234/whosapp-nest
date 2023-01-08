@@ -1,0 +1,22 @@
+{
+    "services": [
+        {
+            "name": "api",
+            "git": {
+                "branch": "main"
+            },
+            "build": {
+                "cmd": "npm run build",
+                "env": {
+                    "NODE_ENV": "production"
+                }
+            },
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "scripts": {
+                "start:prod": "node dist/main.js"
+            }
+        }
+    ]
+}
