@@ -8,12 +8,13 @@ import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { MessageModule } from './message/message.module';
 
+const connectionString = process.env.NODE_ENV === 'production'
+  ? 'mongodb+srv://ndh:ndhndh@cluster0.t7f0r.mongodb.net/?retryWrites=true&w=majority'
+  : 'mongodb://localhost:27017/whosapp_db';
+
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/whosapp_db'),
-    MongooseModule.forRoot(
-      'mongodb+srv://ndh:ndhndh@cluster0.t7f0r.mongodb.net/?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(connectionString),
     UsersModule,
     AuthModule,
     ChatModule,
