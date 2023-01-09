@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 // import { join } from 'path';
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import { ServerOptions } from 'socket.io';
+import { join } from 'path';
 
 export class SocketAdapter extends IoAdapter {
   createIOServer(
@@ -32,7 +33,7 @@ async function bootstrap() {
   });
 
   app.useWebSocketAdapter(new SocketAdapter(app));
-
+  app.useStaticAssets(join(__dirname, '..', 'client'));
   const port = process.env.PORT || 3001
     
   await app.listen(port);
