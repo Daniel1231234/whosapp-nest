@@ -4,7 +4,7 @@ import { UsersService } from './users.service';
 import { User } from './users.model';
 import * as bcrypt from 'bcrypt';
 
-@Controller('users')
+@Controller('/api/users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
 

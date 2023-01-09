@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 // import { AuthGuard } from '@nestjs/passport';
 import { UsersService } from 'src/users/users.service';
 
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
     constructor(private authService: AuthService, private usersService: UsersService) { }
 

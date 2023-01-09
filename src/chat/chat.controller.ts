@@ -4,7 +4,7 @@ import { Chat } from './chat.schema';
 import { ChatService } from './chat.service';
 // import * as mongoose from 'mongoose'
 
-@Controller('chats')
+@Controller('/api/chats')
 export class ChatController {
     constructor(private readonly chatService: ChatService) { }
     
