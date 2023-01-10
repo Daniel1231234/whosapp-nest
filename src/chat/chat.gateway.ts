@@ -11,7 +11,6 @@ import {
 import { Server, Socket } from 'socket.io';
 import { MessageService } from 'src/message/message.service';
 import {  User, UserDocument } from 'src/users/users.model';
-// import { Logger } from '@nestjs/common';
 import { ChatService } from './chat.service';
 
 
@@ -36,9 +35,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async handleDisconnect(client: Socket) {
     console.log(`user disconnected ${client.id}`);
   }
-
-
-
 
 
 
