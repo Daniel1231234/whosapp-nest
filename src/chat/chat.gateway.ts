@@ -28,6 +28,7 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
     private userService: UsersService)
   { }
 
+  
   @WebSocketServer()
   server: Server;
   joinUsers: User[] = [];
