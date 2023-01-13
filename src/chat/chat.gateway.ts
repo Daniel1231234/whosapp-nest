@@ -74,7 +74,7 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
         createdAt,
       });
       
-      this.server.emit('receive_message', {
+      client.emit('receive_message', {
          _id: utilService.makeId(10),
         txt: `Welcome ${user.name}`,
         sender: 'ChatBot',
