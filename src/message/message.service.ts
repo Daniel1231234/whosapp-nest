@@ -34,7 +34,7 @@ export class MessageService {
   async findRoomMsg(room: string): Promise<Message[]> {
     const allMsgs = await this.messageModel.find().exec();
     const res = allMsgs.filter((msg) => msg.room === room)
-    console.log(res, ' total msgs from room')
+    // console.log(res, ' total msgs from room')
     return res   
     // return await this.messageModel.findOne({ room: room }).exec();
   }

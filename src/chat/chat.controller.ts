@@ -8,21 +8,16 @@ import { ChatService } from './chat.service';
 export class ChatController {
     constructor(private readonly chatService: ChatService) { }
     
-    @Post('/')
-    async createChat(@Body() chat: Chat): Promise<Chat> {
-      const newRoom = await this.chatService.create(chat)
-      return newRoom
-      }
+  @Post('/')
+  async createChat(@Body() chat: Chat): Promise<Chat> {
+    const newRoom = await this.chatService.create(chat)
+    return newRoom
+    }
 
-//   @Get('/')
-//   async findAllChat(): Promise<Chat[]> {
-//     const res = await this.chatService.findAll();
-//     return res
-//     }
     
   @Get('/:userId')
   async findUserChat(@Param('userId') userId: string): Promise<Chat[]> {
-      console.log(userId);
+      console.log(userId, 'chat-controller');
 
     const res = await this.chatService.findUserChats(userId);
     return res

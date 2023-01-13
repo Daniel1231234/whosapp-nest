@@ -10,7 +10,7 @@ export class AuthService {
     
     async validateUser(username: string, password: string): Promise<any> {
         const user = await this.usersService.getByUsername( username );
-        console.log(user, ' auth.service');
+        // console.log(user, ' auth.service');
         
         if (!user) return null;
         const passwordValid = await bcrypt.compare(password, user.password)
@@ -23,10 +23,10 @@ export class AuthService {
         return null;
     }
     async login(user: any) {
-        console.log('user => ', user)
+        // console.log('user => ', user)
         
         const payload = { username: user?.email, sub: user._id };
-        console.log(payload, ' payload');
+        // console.log(payload, ' payload from login');
         
         return {
             access_token: this.jwtService.sign(payload),

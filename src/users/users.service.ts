@@ -8,15 +8,16 @@ import { User, UserDocument } from './users.model';
 export class UsersService {
     constructor(@InjectModel('user') private readonly userModel: Model<UserDocument>) { }
     
-    async createUser(email: string, password: string, name:string): Promise<User> {
+    async createUser(email: string, password: string, name: string, publicChatroom:any): Promise<User> {
         return this.userModel.create({
             _id: new mongoose.Types.ObjectId(),
+            socketId:'',
             lastSeen: Date.now(),
             image: '',
             email,
             password,
             name,
-            chatRooms:[]
+            chatRooms:[publicChatroom]
         })
     }
 
@@ -31,5 +32,10 @@ export class UsersService {
         return userToReturn
     }
 
-    // async updateUser()
+    async updateUser(user:User): Promise<User> {
+        console.log(user, ' user from user service')
+        const updated = { ...user }
+        delete updated._id
+        return await this.userModel.findOneAndUpdate({ email: updated.email }, updated, {new:true});
+    }
 }

@@ -14,7 +14,7 @@ export class AuthController {
     async login(@Request() req) {
         const user = await this.usersService.getByUsername(req.body.email)
         if (!user) return
-        console.log(user)
+        // console.log(user, "auth.controller!")
         return this.authService.login(user);
     }
 }

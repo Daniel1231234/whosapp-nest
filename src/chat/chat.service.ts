@@ -22,21 +22,15 @@ export class ChatService {
     return newRoom
   }
 
-  async findUserChats(userId:string): Promise<Chat[]> {
+    async findUserChats(userId:string): Promise<Chat[]> {
     const totalChats = await this.chatModel.find().exec()
     const userChats = totalChats.filter((chat) => chat.createdByUserId === userId)
-    const newChat = await this.createPublicRoom()
-    const res = [...userChats, newChat]
-    return res
+    return userChats
   }
 
-  async createPublicRoom(): Promise<Chat> {
-    return this.chatModel.create({
-      _id: new mongoose.Types.ObjectId(),
-      room: 'Public room',
-      messages: [],
-      users: [],
-    })
+
+  async getPublicRoom(): Promise<Chat> {
+      return await this.chatModel.findOne({room:'Public room'})
   }
 
   async findAll(): Promise<Chat[]> {

@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import * as dotenv from 'dotenv';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
@@ -9,7 +10,6 @@ import { ChatModule } from './chat/chat.module';
 import { MessageModule } from './message/message.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ const connectionString = process.env.NODE_ENV === 'production'
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client'),
+      rootPath: join(__dirname, '..', 'public'),
     }),
     MongooseModule.forRoot(connectionString),
     UsersModule,

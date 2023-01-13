@@ -2,6 +2,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import * as mongoose from 'mongoose'
+import { Chat } from 'src/chat/chat.schema';
 
 export type UserDocument = User & Document;
 
@@ -9,6 +10,9 @@ export type UserDocument = User & Document;
 export class User {
   @Prop(new mongoose.Types.ObjectId())
   _id?: string;
+
+  @Prop()
+  socketId?:string
 
   @Prop()
     name?:string
@@ -31,8 +35,8 @@ export class User {
   @Prop()
   lastRoom?: string;
 
-@Prop({ type: [String] })
-chatRooms: any;
+@Prop()
+chatRooms: Chat[];
 
 }
 

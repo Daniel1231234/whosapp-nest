@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller,  Post, Put } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './users.model';
 import * as bcrypt from 'bcrypt';
+import { ChatService } from 'src/chat/chat.service';
 
 @Controller('/api/users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService) { }
+    constructor(private readonly usersService: UsersService, private readonly chatService: ChatService) { }
 
     @Post('/signup')
     async createUser(
@@ -16,18 +17,26 @@ export class UsersController {
     ): Promise<User> {
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+        const publicChatroom = await this.chatService.getPublicRoom()
+
         const result = await this.usersService.createUser(
             email,
             hashedPassword,
-            name
+            name,
+            publicChatroom
         );
         return result;
     }
 
-@Put('/:userId')
-    async update(@Param('userId') userId: string, @Body('chatId') chatId:string):Promise<User | void> {
-        console.log(userId, chatId, ' users controllets')
+    @Put('/')
+    async onUpdateUser(@Body() user: User): Promise<User> {
+        console.log(user, ' user from user controller');
         
+        const userToUpdate = await this.usersService.updateUser(user)
+        console.log(userToUpdate, ' userToUpdate from user controller');
+        return userToUpdate
     }
+
+    
 
 }
