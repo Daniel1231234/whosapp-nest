@@ -1,27 +1,34 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get,  Param, Post, Body, Put, Delete } from '@nestjs/common';
+// import { User } from 'src/users/users.model';
+import { UsersService } from 'src/users/users.service';
 import { Chat } from './chat.schema';
 import { ChatService } from './chat.service';
 // import * as mongoose from 'mongoose'
 
 @Controller('/api/chats')
 export class ChatController {
-    constructor(private readonly chatService: ChatService) { }
+  constructor(private readonly chatService: ChatService,
+    private readonly userService: UsersService) { }
     
+  
   @Post('/')
   async createChat(@Body() chat: Chat): Promise<Chat> {
     const newRoom = await this.chatService.create(chat)
     return newRoom
-    }
+  }
+
 
     
-  @Get('/:userId')
-  async findUserChat(@Param('userId') userId: string): Promise<Chat[]> {
-      console.log(userId, 'chat-controller');
+  // @Get('/:userId')
+  // async findUserChat(@Param('userId') userId: string): Promise<Chat[]> {
+  //     console.log(userId, 'chat-controller');
 
-    const res = await this.chatService.findUserChats(userId);
-    return res
-  }
+  //   const res = await this.chatService.findUserChats(userId);
+  //   console.log(res, ' ress');
+    
+  //   return res
+  // }
 
   @Get('/:roomId')
   async findOneChat(@Param('roomId') roomId: string): Promise<Chat | any> {

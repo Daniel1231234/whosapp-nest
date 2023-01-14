@@ -10,7 +10,7 @@ export type ChatDocument = Chat & Document;
 @Schema()
 export class Chat {
   @Prop(new mongoose.Types.ObjectId())
-  _id: string
+  _id:string
   
   @Prop()
   room: string;

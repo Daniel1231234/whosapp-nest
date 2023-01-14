@@ -37,8 +37,11 @@ export class ChatService {
     return await this.chatModel.find().exec();
   }
 
-  async findOne(_id: string): Promise<Chat> {
-    return await this.chatModel.findOne({ _id: _id }).exec();
+  async findOne(roomId: string): Promise<Chat> {
+    console.log(roomId, 'FROM SERVIE');
+    const id = new mongoose.Types.ObjectId(roomId)
+    const chat = await this.chatModel.findOne({ _id: id }).exec();
+    return chat
   }
 
   async update(_id: string, chat: Chat): Promise<Chat> {
