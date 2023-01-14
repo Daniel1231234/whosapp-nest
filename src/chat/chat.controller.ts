@@ -19,17 +19,6 @@ export class ChatController {
   }
 
 
-    
-  // @Get('/:userId')
-  // async findUserChat(@Param('userId') userId: string): Promise<Chat[]> {
-  //     console.log(userId, 'chat-controller');
-
-  //   const res = await this.chatService.findUserChats(userId);
-  //   console.log(res, ' ress');
-    
-  //   return res
-  // }
-
   @Get('/:roomId')
   async findOneChat(@Param('roomId') roomId: string): Promise<Chat | any> {
     const res = await this.chatService.findOne(roomId)

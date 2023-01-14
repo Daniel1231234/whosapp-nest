@@ -30,7 +30,7 @@ async function bootstrap() {
     origin: '*'
   });
 
-  // app.useWebSocketAdapter(new SocketAdapter(app));
+  app.useWebSocketAdapter(new SocketAdapter(app));
   app.useStaticAssets(join(__dirname, '..', 'public'));
   const port = process.env.PORT || 3001
     
