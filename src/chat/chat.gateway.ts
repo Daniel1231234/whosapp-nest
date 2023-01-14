@@ -32,7 +32,7 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
   @WebSocketServer()
   server: Server;
   joinUsers: User[] = [];
-  currRoom: {users:User[] | [], room:string} = {users: [], room: ''}
+  currRoom = ""
   private readonly logger = new Logger('whosapp');
   
   async handleConnection(client: Socket) {
@@ -59,7 +59,8 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
       const isUserExist = this.joinUsers.find(usr => usr._id === user._id)
       if (!isUserExist) this.joinUsers = utilService.addUserToList(user, this.joinUsers)
         // console.log(this.joinUsers, ' this.joinUsers');
-        client.join(user.room);
+      client.join(user.room);
+      this.currRoom = user.room
         client.emit('chatroom_users', this.joinUsers)
         client.to(user.room).emit('chatroom_users', this.joinUsers)
       
@@ -88,7 +89,9 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
 
   @SubscribeMessage('remove_message')
   async handleDelete(client: Socket, _id: string) {
-    await this.messageService.delete(_id)
+    // const lastMsgs = await this.messageService.findRoomMsg(this.currRoom)
+    // client.to(this.currRoom).emit('last_msgs', lastMsgs)
+    await this.messageService.delete(_id)   
   }
 
 
@@ -125,5 +128,6 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
     });
     
     client.leave(user.lastRoom)
+    this.currRoom = ''
   }
 }
