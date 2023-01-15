@@ -2,7 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { Chat } from 'src/chat/chat.schema';
+// import { Chat } from 'src/chat/chat.schema';
 import { User, UserDocument } from './users.model';
 
 @Injectable()
@@ -27,12 +27,7 @@ export class UsersService {
         return this.userModel.findOne(query)
     }
 
-    async updateChatRooms(room: Chat, userId: string): Promise<User | any>  {
-        const users = await this.userModel.find().exec()
-        const user = users.find(u => u._id === userId)
-        user.chatRooms.push(room)
-        return this.updateUser(user)
-    }
+
 
     async getByUsername(username: string): Promise<any> {
         const users = await this.userModel.find().exec()

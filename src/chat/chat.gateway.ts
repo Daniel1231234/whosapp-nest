@@ -32,21 +32,19 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
   @WebSocketServer()
   server: Server;
   joinUsers: User[] = [];
-  currRoom = ""
+  currRoomName = ""
+   currentTypingUser: string;
   private readonly logger = new Logger('whosapp');
   
   async handleConnection(client: Socket) {
     console.log(`user connected ${client.id}`)
-    this.logger.log(`user connected ${client.id}`)
+    // this.logger.log(`user connected ${client.id}`)
   }
 
   async handleDisconnect(client: Socket) {
     console.log(`user disconnected ${client.id}`);
-
-    // client.emit('user_left_room', { userId: client.id })
   }
 
-  
   @SubscribeMessage('delete_room')
   async handleDeleteRoom(client: Socket, roomId: string) {
     const roomToDelete = await this.chatService.delete(roomId)
@@ -60,7 +58,7 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
       if (!isUserExist) this.joinUsers = utilService.addUserToList(user, this.joinUsers)
         // console.log(this.joinUsers, ' this.joinUsers');
       client.join(user.room);
-      this.currRoom = user.room
+      this.currRoomName = user.room
         client.emit('chatroom_users', this.joinUsers)
         client.to(user.room).emit('chatroom_users', this.joinUsers)
       
@@ -87,10 +85,21 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
     }
   }
 
+  @SubscribeMessage('start_typing')
+    handleStartTyping(client: Socket, username: string) {
+    this.currentTypingUser = username;
+    client.to(this.currRoomName).emit('user_typing', username);
+  }
+  
+  @SubscribeMessage('stop_typing')
+  handleStopTyping(client: Socket) {
+    
+    this.currentTypingUser = '';
+    client.to(this.currRoomName).emit('user_typing', '');
+}
+
   @SubscribeMessage('remove_message')
   async handleDelete(client: Socket, _id: string) {
-    // const lastMsgs = await this.messageService.findRoomMsg(this.currRoom)
-    // client.to(this.currRoom).emit('last_msgs', lastMsgs)
     await this.messageService.delete(_id)   
   }
 
@@ -110,10 +119,7 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
   }
   
   @SubscribeMessage('leave_room')
-  async  handleLeaveRoom(
-    client: Socket,
-    user: UserDocument,
-    ) {
+    async  handleLeaveRoom(client: Socket, user: UserDocument) {
     // console.log('user leave room: ', user);
     this.joinUsers = utilService.removeUserFromList(user._id, this.joinUsers);
     client.emit('chatroom_users', this.joinUsers)
@@ -128,6 +134,6 @@ export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect 
     });
     
     client.leave(user.lastRoom)
-    this.currRoom = ''
+    this.currRoomName = ''
   }
 }

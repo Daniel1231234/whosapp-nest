@@ -10,7 +10,6 @@ import { ChatService } from './chat.service';
 export class ChatController {
   constructor(private readonly chatService: ChatService,
     private readonly userService: UsersService) { }
-    
   
   @Post('/')
   async createChat(@Body() chat: Chat): Promise<Chat> {
@@ -18,24 +17,19 @@ export class ChatController {
     return newRoom
   }
 
-
   @Get('/:roomId')
   async findOneChat(@Param('roomId') roomId: string): Promise<Chat | any> {
     const res = await this.chatService.findOne(roomId)
-    // console.log(res, 'res form chat controller')
     return res
   }
 
   @Put('/:roomId')
   async updateChat(@Body() chat: Chat): Promise<void> {
-    // console.log(chat, ' chat from Put roomid')
     await this.chatService.update(chat._id, chat)
   }
 
   @Delete('/:roomId')
-  async deleteChat(@Param('roomId') roomId: string): Promise<void> {
-    // console.log(roomId);
-    
+  async deleteChat(@Param('roomId') roomId: string): Promise<void> {    
     await this.chatService.delete(roomId)
   }
 }
