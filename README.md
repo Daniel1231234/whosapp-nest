@@ -1,73 +1,42 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ npm install
-```
-
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+<h1>WhosApp</h1>
+<p>A real-time chat application built with React, TypeScript, Nest.js, Socket.io, JWT, and MongoDB.</p>
+<h2>Features</h2>
+<ul>
+  <li>Simple signup and login</li>
+  <li>Public room where anyone can join</li>
+  <li>Create private rooms and send invitation links to friends (joined users must login before being redirected to the chat)</li>
+  <li>Ability to delete only your own messages</li>
+  <li>Fully responsive for mobile use</li>
+</ul>
+<h2>Getting started</h2>
+<p>To run the application locally, you will need to have Node.js and MongoDB installed.</p>
+<ol>
+  <li>Clone the repository:
+    <ul>
+      <li>Backend: git clone https://github.com/Daniel1231234/whosapp-nest.git</li>
+      <li>Frontend: git clone https://github.com/Daniel1231234/whosapp-frontend.git</li>
+    </ul>
+  </li>
+  <li>Install the dependencies: npm install</li>
+  <li>Start the server: npm run dev</li>
+  <li>Start the client: npm run dev</li>
+  <li>The application will be available at http://127.0.0.1:5173/</li>
+</ol>
+<h2>Tech stack</h2>
+<ul>
+  <li>React with TypeScript for the frontend</li>
+  <li>Nest.js with Socket.io for the backend</li>
+  <li>JWT for authentication</li>
+  <li>MongoDB for the database</li>
+</ul>
+<h2>Contributing</h2>
+<p>If you would like to contribute to the project, please open a pull request with your proposed changes.</p>
+<h2>Todo</h2>
+<ul>
+  <li>Save chat messages and details after a page refresh</li>
+</ul>
+<h2>See Demo</h2>
+<p>You can see the demo version of the application here: <a href="https://whosapp.onrender.com/">https://whosapp.onrender.com/</a></p>
+<h2>License</h2>
+<p>whosApp is open source and available under the MIT License</p>
+<p>Please replace the link of your frontend repository, demo and your own name in the license file.</p>
