@@ -39,4 +39,3 @@
 <p>You can see the demo version of the application here: <a href="https://whosapp.onrender.com/">https://whosapp.onrender.com/</a></p>
 <h2>License</h2>
 <p>whosApp is open source and available under the MIT License</p>
-<p>Please replace the link of your frontend repository, demo and your own name in the license file.</p>
