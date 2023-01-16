@@ -25,14 +25,16 @@ export class UsersController {
             name,
             publicChatroom
         );
+        console.log(result, ' result from signup');
+        
         return result;
     }
 
     @Put('/')
     async onUpdateUser(@Body() user: User): Promise<User> {
         // console.log(user, ' user from user controller');
-        const userToUpdate = await this.usersService.updateUser(user)
-        // console.log(userToUpdate, ' userToUpdate from user controller');
+        const userToUpdate = await this.usersService.updateById(user)
+        console.log(userToUpdate, ' userToUpdate from user controller');
         return userToUpdate
     }
 

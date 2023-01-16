@@ -9,7 +9,11 @@ import { User, UserDocument } from './users.model';
 export class UsersService {
     constructor(@InjectModel('user') private readonly userModel: Model<UserDocument>) { }
     
-    async createUser(email: string, password: string, name: string, publicChatroom:any): Promise<User> {
+    async createUser(email: string, password: string, name: string, publicChatroom: any): Promise<User | any> {
+        
+        const isUserExist = await this.getByUsername(email)
+        if (isUserExist) return 'Email is allready exist'
+        
         return this.userModel.create({
             _id: new mongoose.Types.ObjectId(),
             socketId:'',
@@ -41,4 +45,10 @@ export class UsersService {
         delete updated._id
         return await this.userModel.findOneAndUpdate({ email: updated.email }, updated, {new:true});
     }
+
+        async updateById(user: User): Promise<User | any> {
+            const mongoId = new mongoose.Types.ObjectId(user._id)
+            delete user._id;
+            return await this.userModel.findByIdAndUpdate(mongoId, user, { new: true })
+}
 }
