@@ -22,6 +22,7 @@ export class ChatController {
     await this.chatService.delete(roomId)
   }
 
+  
   @Get('/:roomId')
   async findOneChat(@Param('roomId') roomId: string): Promise<Chat | any> {
     console.log(roomId, ' roomId from chatcontroller')
