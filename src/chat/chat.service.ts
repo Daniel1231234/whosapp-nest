@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Chat } from "./chat.schema";
 import * as mongoose from 'mongoose'
+import { UnauthorizedException } from "@nestjs/common";
 
 export class ChatService {
   constructor(@InjectModel('chat') private readonly chatModel: Model<Chat>) {}
@@ -38,9 +39,9 @@ export class ChatService {
   }
 
   async findOne(roomId: string): Promise<Chat> {
-    console.log(roomId, 'FROM SERVIE');
     const id = new mongoose.Types.ObjectId(roomId)
     const chat = await this.chatModel.findOne({ _id: id }).exec();
+    console.log(chat, 'chat to return FROM CHATSERVICE');
     return chat
   }
 
@@ -52,6 +53,7 @@ export class ChatService {
     try {
       const objectId = new mongoose.Types.ObjectId(roomId);
       const chatToDelete = await this.chatModel.findByIdAndRemove(objectId);
+      if (chatToDelete.room === "Public room") throw new UnauthorizedException('Can not delete Public rooms')
       // console.log(chatToDelete)
       return chatToDelete
     } catch (err) {

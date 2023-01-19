@@ -17,8 +17,14 @@ export class ChatController {
     return newRoom
   }
 
+  @Delete('/')
+  async deleteChat(@Body('roomId') roomId: string): Promise<void> {    
+    await this.chatService.delete(roomId)
+  }
+
   @Get('/:roomId')
   async findOneChat(@Param('roomId') roomId: string): Promise<Chat | any> {
+    console.log(roomId, ' roomId from chatcontroller')
     const res = await this.chatService.findOne(roomId)
     return res
   }
@@ -28,8 +34,5 @@ export class ChatController {
     await this.chatService.update(chat._id, chat)
   }
 
-  @Delete('/:roomId')
-  async deleteChat(@Param('roomId') roomId: string): Promise<void> {    
-    await this.chatService.delete(roomId)
-  }
+
 }

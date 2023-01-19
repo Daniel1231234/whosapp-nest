@@ -1,16 +1,24 @@
 /* eslint-disable prettier/prettier */
-import { Injectable, NotAcceptableException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+// import { User } from 'src/users/users.model';
+// import { utilService } from 'src/utils/utils';
+import { ChatService } from 'src/chat/chat.service';
+import { Hash } from './Hah';
+
+
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly usersService: UsersService, private jwtService: JwtService) { }
+    constructor(
+        private readonly usersService: UsersService,
+        private jwtService: JwtService,
+        private chatService: ChatService) { }
     
     async validateUser(username: string, password: string): Promise<any> {
-        const user = await this.usersService.getByUsername( username );
-        // console.log(user, ' auth.service');
+        const user = await this.usersService.getByEmail( username );
         
         if (!user) return null;
         const passwordValid = await bcrypt.compare(password, user.password)
@@ -22,15 +30,39 @@ export class AuthService {
         }
         return null;
     }
-    async login(user: any) {
-        // console.log('user => ', user)
+
+    async login(cred: { email: string; password: string; }) {    
+        const userIsExist = await this.usersService.getByEmail(cred.email)
+        // console.log(userIsExist, ' userIsExist')
+        if (!userIsExist) throw new UnauthorizedException('Invalid email! or password')
         
-        const payload = { username: user?.email, sub: user._id };
-        // console.log(payload, ' payload from login');
+        const isPasswordValid = Hash.compare(cred.password, userIsExist.password)
+        // console.log(isPasswordValid, ' isPasswordValid')
+        if (!isPasswordValid) throw new UnauthorizedException('Invalid email or password!')
         
-        return {
-            access_token: this.jwtService.sign(payload),
-            user
-        };
+
+
+        const token = this.generateToken(userIsExist._id)
+        return {userIsExist, token}
+        // const payload = { username: user?.email, sub: user._id };        
+        // return {
+        //     access_token: this.jwtService.sign(payload),
+        //     user
+        // };
     }
+    
+    async signup(email: string, password: string, name: string) {
+        const publicChatroom = await this.chatService.getPublicRoom()
+        const user = await this.usersService.createUser(email, password, name, publicChatroom)
+        const token = this.generateToken(user._id)
+        return {user, token}
+    }
+
+
+    generateToken(userId: any) {
+        const payload: {userId:any} = { userId };
+        return this.jwtService.sign(payload);
+  }
+
+  
 }

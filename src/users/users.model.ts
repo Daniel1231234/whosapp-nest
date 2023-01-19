@@ -9,13 +9,10 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
   @Prop(new mongoose.Types.ObjectId())
-  _id?: string;
+  _id: string;
 
   @Prop()
-  socketId?:string
-
-  @Prop()
-    name?:string
+  name:string
 
   @Prop()
   password: string;
@@ -30,13 +27,13 @@ export class User {
   image: string;
 
   @Prop()
-  room?: string;
+  room: string;
 
   @Prop()
-  lastRoom?: string;
+  lastRoom: string;
 
-@Prop()
-chatRooms: Chat[];
+  @Prop()
+  chatRooms: Chat[];
 
 }
 

@@ -1,12 +1,14 @@
 /* eslint-disable prettier/prettier */
 
 import { User } from "src/users/users.model";
-
+import * as bcryptjs from 'bcryptjs';
 
 function removeUserFromList  (userId: string, usersList: User[]): User[]  {
   return usersList.filter((user) => user._id !== userId);
 }
-function addUserToList  (user: User, usersList: User[]): User[]  {
+
+
+function addUserToList(user: User, usersList: User[]): User[]  {
   return  [...usersList, user]
 }
 
@@ -20,8 +22,19 @@ function makeId(length: number): string {
   return result;
 }
 
+function generateHash(plainText: string) {
+  return bcryptjs.hashSync(plainText)
+}
+
+function compare(plainText: string, hash:  string) {
+  console.log(plainText, hash)
+    return bcryptjs.compareSync(plainText.toString(), hash.toString());
+  }
+
 export const utilService = {
     removeUserFromList,
     addUserToList,
-    makeId
+  makeId, 
+  generateHash,
+    compare
 }

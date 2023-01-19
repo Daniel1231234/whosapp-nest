@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+import { Hash } from 'src/auth/Hah';
 // import { Chat } from 'src/chat/chat.schema';
 import { User, UserDocument } from './users.model';
 
@@ -10,17 +11,18 @@ export class UsersService {
     constructor(@InjectModel('user') private readonly userModel: Model<UserDocument>) { }
     
     async createUser(email: string, password: string, name: string, publicChatroom: any): Promise<User | any> {
+        const foundUser = await this.getByEmail(email)
+        if (foundUser) throw new ConflictException('Email already in use');
         
-        const isUserExist = await this.getByUsername(email)
-        if (isUserExist) return 'Email is allready exist'
-        
+        const passwordHash = Hash.generateHash(password)
         return this.userModel.create({
             _id: new mongoose.Types.ObjectId(),
-            socketId:'',
             lastSeen: Date.now(),
+            room: '',
+            lastRoom:'',
             image: '',
             email,
-            password,
+            password: passwordHash,
             name,
             chatRooms:[publicChatroom]
         })
@@ -33,9 +35,9 @@ export class UsersService {
 
 
 
-    async getByUsername(username: string): Promise<any> {
+    async getByEmail(email: string): Promise<any> {
         const users = await this.userModel.find().exec()
-        const userToReturn = users.find((user) => user.email === username)
+        const userToReturn = users.find((user) => user.email === email)
         return userToReturn
     }
 
@@ -50,5 +52,5 @@ export class UsersService {
             const mongoId = new mongoose.Types.ObjectId(user._id)
             delete user._id;
             return await this.userModel.findByIdAndUpdate(mongoId, user, { new: true })
-}
+        }
 }
