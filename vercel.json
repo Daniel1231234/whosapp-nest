@@ -4,7 +4,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "src/main.ts",
+            "dest": "public",
             "methods": [
                 "GET",
                 "POST",
