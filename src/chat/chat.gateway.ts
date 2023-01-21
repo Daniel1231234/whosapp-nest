@@ -16,10 +16,11 @@ import { utilService } from 'src/utils/utils';
 import { ChatService } from './chat.service';
 
 @WebSocketGateway({
-  // namespace: '/chat',
+  namespace: '/chat',
   cors:'*',
 })
 
+  
 @Injectable()
 export class ChatGateway implements   OnGatewayConnection,  OnGatewayDisconnect {
   constructor(@InjectModel('chat')
