@@ -15,7 +15,7 @@ export class MessageController {
         
       }
 
-  @Get('/')
+@Get('/')
   async findAllMessage(): Promise<Message[]> {
     const res = await this.messageService.findAll();
     return res
