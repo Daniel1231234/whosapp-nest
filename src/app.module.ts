@@ -12,9 +12,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 
-
-
-
 dotenv.config();
 
 const connectionString = process.env.NODE_ENV === 'production'
