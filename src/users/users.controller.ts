@@ -6,7 +6,8 @@ import { ChatService } from 'src/chat/chat.service';
 
 @Controller('/api/users')
 export class UsersController {
-    constructor(private readonly usersService: UsersService, private readonly chatService: ChatService) { }
+    constructor(private readonly usersService: UsersService,
+        private readonly chatService: ChatService) { }
 
 
     @Put('/')

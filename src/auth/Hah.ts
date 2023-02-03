@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as bcryptjs from 'bcryptjs';
 
 export class Hash {

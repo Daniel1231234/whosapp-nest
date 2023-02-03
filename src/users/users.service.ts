@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, ConflictException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';

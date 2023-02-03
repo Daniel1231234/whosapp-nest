@@ -1,10 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, NotAcceptableException, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-// import { User } from 'src/users/users.model';
-// import { utilService } from 'src/utils/utils';
+
 import { ChatService } from 'src/chat/chat.service';
 import { Hash } from './Hah';
 
@@ -33,22 +31,16 @@ export class AuthService {
 
     async login(cred: { email: string; password: string; }) {    
         const userIsExist = await this.usersService.getByEmail(cred.email)
-        // console.log(userIsExist, ' userIsExist')
         if (!userIsExist) throw new UnauthorizedException('Invalid email! or password')
         
         const isPasswordValid = Hash.compare(cred.password, userIsExist.password)
-        // console.log(isPasswordValid, ' isPasswordValid')
         if (!isPasswordValid) throw new UnauthorizedException('Invalid email or password!')
         
 
 
         const token = this.generateToken(userIsExist._id)
         return {userIsExist, token}
-        // const payload = { username: user?.email, sub: user._id };        
-        // return {
-        //     access_token: this.jwtService.sign(payload),
-        //     user
-        // };
+
     }
     
     async signup(email: string, password: string, name: string) {

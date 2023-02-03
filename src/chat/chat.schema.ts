@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {  Document } from 'mongoose';
 // import { User } from 'src/users/users.model';
 import * as mongoose from 'mongoose'
+// import { UserDocument } from 'src/users/users.model';
 
 // export type ChatDocument = HydratedDocument<Chat>
 export type ChatDocument = Chat & Document;
@@ -19,7 +19,7 @@ export class Chat {
   messages?: Array<any | null>
     
   @Prop()
-  users?: Array<string | null>;
+  users?: Array<any>;
     
   @Prop()
   createdByUserId?: string

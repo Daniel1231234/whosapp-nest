@@ -1,8 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Controller, Get,  Param, Post, Body, Delete } from '@nestjs/common';
 import { Message } from './message.scheme';
 import { MessageService } from './message.service';
-// import * as mongoose from 'mongoose'
 
 @Controller('messages')
 export class MessageController {
